@@ -51,7 +51,6 @@ public final class AFKPlus extends LapisCorePlugin {
         saveDefaultConfig();
         registerConfiguration(new LapisCoreConfiguration(this, 10, 2));
         registerPermissions(new AFKPlusPermissions(this));
-        update();
         fileWatcher = new LapisCoreFileWatcher(this);
         Locale loc = new Locale(config.getMessage("PrettyTimeLocale"));
         prettyTime = new PrettyTime(loc);
@@ -88,21 +87,6 @@ public final class AFKPlus extends LapisCorePlugin {
 
     public AFKPlusPlayer getPlayer(OfflinePlayer op) {
         return getPlayer(op.getUniqueId());
-    }
-
-    private void update() {
-        updater = new LapisUpdater(this, "AFKPlus", "Dart2112", "AFKPlus", "master");
-        Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
-            if (updater.checkUpdate()) {
-                if (getConfig().getBoolean("UpdateDownload")) {
-                    updater.downloadUpdate();
-                } else {
-                    getLogger().info(config.getMessage("Updater.UpdateFound"));
-                }
-            } else {
-                getLogger().info(config.getMessage("Updater.NoUpdate"));
-            }
-        });
     }
 
     private void disposeOfPlayers() {

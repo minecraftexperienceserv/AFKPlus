@@ -235,7 +235,6 @@ public class AFKPlusPlayer {
     public void forceStopAFK() {
         //Record the new value for the time AFK statistic
         if (isAFK())
-            recordTimeStatistic();
         //Reset warning
         isWarned = false;
         //Set player as no longer AFK
@@ -333,24 +332,6 @@ public class AFKPlusPlayer {
         return false;
     }
 
-    /**
-     * Get the total time that a player has been AFK
-     * This is the sum of all time that the player has been AFK
-     *
-     * @return The total time spent AFK, 0 if there is no record for this player
-     */
-    public long getTotalTimeAFK() {
-        //Get or create the statistics file
-        File f = new File(plugin.getDataFolder(), "statistics.yml");
-        if (!f.exists()) {
-            return 0L;
-        }
-        YamlConfiguration statistics = YamlConfiguration.loadConfiguration(f);
-        //Grab the current value of the statistic so that we can add to it, or get 0L if there is no current value
-        return statistics.getLong(getName() + ".TimeSpentAFK", 0L);
-    }
-
-
 
     /**
      * Handles the running of a command with a player variable, this is used for AFK start/stop/warn/action commands
@@ -396,34 +377,6 @@ public class AFKPlusPlayer {
         sound.playSound(p);
     }
 
-    /**
-     * Records the time spent AFK and adds it to the already existing value in the statistics file
-     */
-    private void recordTimeStatistic() {
-        //Get or create the statistics file
-        File f = new File(plugin.getDataFolder(), "statistics.yml");
-        if (!f.exists()) {
-            try {
-                if (!f.createNewFile())
-                    throw new IOException("Failed to create " + f.getName());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        YamlConfiguration statistics = YamlConfiguration.loadConfiguration(f);
-        //Grab the current value of the statistic so that we can add to it, or get 0L if there is no current value
-        Long currentTimeSpendAFK = statistics.getLong(getName() + ".TimeSpentAFK", 0L);
-        //Calculate the amount of time that the player was AFK for
-        Long timeAFK = System.currentTimeMillis() - afkStart;
-        //Set the value to be the old value plus the most recent amount of time AFK
-        statistics.set(getName() + ".TimeSpentAFK", currentTimeSpendAFK + timeAFK);
-        //Save the file
-        try {
-            statistics.save(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * This is the runnable that detects players who need to be set as AFK, warned or acted upon
