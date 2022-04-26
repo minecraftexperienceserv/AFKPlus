@@ -6,11 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lapismc.afkplus" />
         <module name="AFKPlus" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AFKPlus" target="1.8" />
+      <module name="lapismc.afkplus" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

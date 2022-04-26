@@ -6,7 +6,7 @@
 
     <groupId>net</groupId>
     <artifactId>lapismc.afkplus</artifactId>
-    <version>test1</version>
+    <version>PROD-1</version>
     <packaging>jar</packaging>
 
     <name>AFKPlus</name>
@@ -67,8 +67,18 @@
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.lapismc</groupId>
+            <artifactId>LapisCore</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ocpsoft.prettytime</groupId>
+            <artifactId>prettytime</artifactId>
+            <version>5.0.2.Final</version>
         </dependency>
     </dependencies>
 </project>

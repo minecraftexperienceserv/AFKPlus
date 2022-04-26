@@ -20,7 +20,6 @@ import net.lapismc.afkplus.AFKPlus;
 import net.lapismc.afkplus.api.AFKActionEvent;
 import net.lapismc.afkplus.api.AFKStartEvent;
 import net.lapismc.afkplus.api.AFKStopEvent;
-import net.lapismc.afkplus.util.EssentialsAFKHook;
 import net.lapismc.lapiscore.compatibility.XSound;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -193,8 +192,6 @@ public class AFKPlusPlayer {
         afkStart = System.currentTimeMillis();
         //Set the player as AFK
         isAFK = true;
-        //Update the players AFK status with the essentials plugin
-        updateEssentialsAFKState();
         //Set if the player should be ignored for sleeping
         if (plugin.getConfig().getBoolean("IgnoreAFKPlayersForSleep")) {
             Player p = Bukkit.getPlayer(getUUID());
@@ -248,8 +245,6 @@ public class AFKPlusPlayer {
         isInactive = false;
         //Interact to update the last interact value
         interact();
-        //Update the players AFK status with the essentials plugin
-        updateEssentialsAFKState();
         //Set the player back to being counted for sleep counts
         if (plugin.getConfig().getBoolean("IgnoreAFKPlayersForSleep")) {
             Player p = Bukkit.getPlayer(getUUID());
@@ -355,16 +350,7 @@ public class AFKPlusPlayer {
         return statistics.getLong(getName() + ".TimeSpentAFK", 0L);
     }
 
-    /**
-     * Updates the players current AFK State within the essentials plugin
-     */
-    private void updateEssentialsAFKState() {
-        //Update the AFK state with essentials if it is installed
-        if (!Bukkit.getPluginManager().isPluginEnabled("Essentials"))
-            return;
-        EssentialsAFKHook essHook = new EssentialsAFKHook();
-        essHook.setAFK(getUUID(), isAFK);
-    }
+
 
     /**
      * Handles the running of a command with a player variable, this is used for AFK start/stop/warn/action commands
