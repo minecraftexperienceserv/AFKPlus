@@ -39,9 +39,6 @@
                         </goals>
                         <configuration>
                             <relocations>
-                                <excludes>
-                                    <exclude>javax/**</exclude>
-                                </excludes>
                                 <relocation>
                                     <pattern>org.ocpsoft.prettytime</pattern>
                                     <shadedPattern>net.lapismc.afkplus.util.prettytime</shadedPattern>
